@@ -1,0 +1,45 @@
+stages:
+  - build
+  - test
+  - deploy-ir
+  
+  
+before_script:
+  - before_ci_script
+  
+docker-build:
+  stage: build
+  script:
+    - docker_build_script
+  after_script:
+    - after_ci_script
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /^ci /
+      - $CI_COMMIT_REF_NAME == "master"
+      - $CI_COMMIT_REF_NAME == "dev"
+      - $CI_PIPELINE_SOURCE == "web"
+      - $CI_PIPELINE_SOURCE == "api"
+  tags:
+    - global-runner
+  
+unit-test:
+  stage: test
+  script:
+    - unit_test
+  only:
+    - master
+    - web
+  tags:
+    - global-runner
+  
+  
+deploy-product:
+  stage: deploy-ir
+  script:
+    - deploy_product_script
+  when: manual
+  only:
+    - master
+  tags:
+    - global-runner

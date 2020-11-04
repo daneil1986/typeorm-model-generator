@@ -1,0 +1,22 @@
+{
+  "port": 3000,
+
+  "http": {
+    "timeout": 50000,
+    "maxRedirects": 5,
+    "baseURL": ""
+  },
+
+  "sid": "zyb_test",
+  "secret": "2ffc6748fae5b8e6f6a8fcd2e6c931ef",
+  "service": "http://127.0.0.1:3000/z_project_server/redirect",
+
+  "domain": {
+    "authServer": "http://base-docker.suanshubang.com"
+  },
+
+  "redisServer": {
+    "host": "codis.basic.suanshubang.com",
+    "port": 8700
+  }
+}

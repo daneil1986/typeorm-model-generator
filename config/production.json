@@ -1,0 +1,22 @@
+{
+  "port": 3000,
+
+  "http": {
+    "timeout": 50000,
+    "maxRedirects": 5,
+    "baseURL": ""
+  },
+
+  "sid": "",
+  "secret": "",
+  "service": "",
+
+  "domain": {
+    "authServer": "http://sellmis.zuoyebang.cc"
+  },
+
+  "redisServer": {
+    "host": "saascommon-svc.codis",
+    "port": 8700
+  }
+}

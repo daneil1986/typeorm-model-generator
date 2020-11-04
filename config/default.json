@@ -1,0 +1,6 @@
+{
+  "casServer": [{
+    "host": "ips.zuoyebang.cc",
+    "port": 443
+  }]
+}
