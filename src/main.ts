@@ -21,7 +21,7 @@ async function bootstrap() {
   const RedisStore = connectredis(session)
   const redisClient = redis.createClient(config.redisServer.port, config.redisServer.host)
 
-  app.setGlobalPrefix('z_project_server')
+  app.setGlobalPrefix('preschool')
 
   // https://github.com/cloudnativejs/cloud-health-connect
   app.use('/health', health.HealthEndpoint(new health.HealthChecker()))
