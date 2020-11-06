@@ -9,7 +9,7 @@
 
   "sid": "zyb_test",
   "secret": "2ffc6748fae5b8e6f6a8fcd2e6c931ef",
-  "service": "http://127.0.0.1:3000/z_project_server/redirect",
+  "service": "http://preschool-preschool-env.suanshubang.com/preschool/redirect",
 
   "domain": {
     "authServer": "http://base-docker.suanshubang.com"

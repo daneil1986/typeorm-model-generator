@@ -16,9 +16,11 @@ export class AppService {
 
   async redirect(req, res): Promise<any> {
     let ips = new IPService({ port: config.redisServer.port, host: config.redisServer.host })
+    console.log(req);
+    console.log(res);
     await ips.login(req, res).then((result) => {
       console.log('自行设置定向地址')
-      res.redirect('http://127.0.0.1:3000/z_project_server/auth/userinfo?uname=xiaowei&systemId=15')
+      res.redirect('http://preschool-preschool-env.suanshubang.com/preschool/auth/userinfo?uname=xiaowei&systemId=15')
     })
   }
 
