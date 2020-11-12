@@ -28,6 +28,11 @@ export class AuthController {
     return this.authService.getUserInfo({ systemId, uname })
   }
 
+  @Get('/test')
+  test(): any {
+    return this.authService.test();
+  }
+
   // @Get('/uid')
   // uidInfo(@Req() request: Request): any {
   //   const { zybuss } = request.query

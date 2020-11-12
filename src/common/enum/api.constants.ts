@@ -7,4 +7,8 @@ export enum API {
   AUTH_DATAINFO_API = '/upms/api/getdatainfo',
   AUTH_USERINFO_API = '/upms/api/getuserinfo',
 
+  /**
+   * 登录校验
+   */
+  ZYBUSS_GETUID_API = '/ucloud/service/saasCheckZybuss',
 }

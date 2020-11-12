@@ -12,11 +12,31 @@
   "service": "http://preschool-preschool-env.suanshubang.com/preschool/redirect",
 
   "domain": {
-    "authServer": "http://base-docker.suanshubang.com"
+    "authServer": "http://base-docker.suanshubang.com",
+    "uidServer": "http://session-go-docker.suanshubang.com"
+  },
+
+  "db": {
+    "host": "localhost",
+    "port": 3307,
+    "username": "root",
+    "password": "admin",
+    "database": "node"
   },
 
   "redisServer": {
     "host": "codis.basic.suanshubang.com",
     "port": 8700
+  },
+
+  "product": {
+    "appid": "wx7ced97bbc0f38a93",
+    "product_appid": 1,
+    "product_secret": "ec308451c1d095c528cfa3c009ea7235",
+    "tenantcode": "599747",
+    "token": "1fa13df1b04d8fbe812e3986825790d0",
+    "moduleId": "28968",
+    "name": "kid",
+    "ocsAk": "c5c98ad8549b8f62"
   }
 }

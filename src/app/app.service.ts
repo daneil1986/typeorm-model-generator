@@ -2,9 +2,11 @@ import { Injectable, HttpService } from '@nestjs/common';
 
 import * as config from 'config';
 import { IPService } from '@node/ips';
+import { API } from '../common/enum/api.constants';
 
 @Injectable()
 export class AppService {
+  domain: any;
 
   constructor(
     private readonly httpService: HttpService

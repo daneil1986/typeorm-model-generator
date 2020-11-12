@@ -10,8 +10,11 @@ import { AuthController } from '../auth/auth.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
 
+// 引入数据库的及配置文件
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+
 // IPS 登录
-// import { ZybussMiddleware } from '../common/middleware/zybuss.middleware'; // C端zybuss换uid
+import { ZybussMiddleware } from '../common/middleware/zybuss.middleware'; // C端zybuss换uid
 
 @Global()
 @Module({
@@ -22,6 +25,21 @@ import { AuthModule } from '../auth/auth.module';
       timeout: config.get<string>('http.timeout'),
       maxRedirects: config.get<number>('http.maxRedirects')
     }),
+    // TypeOrmModule.forRootAsync({
+    //   useFactory: () => ({
+    //     type: 'mysql',
+    //     host: config.get('db.host'),
+    //     port: Number(config.get('db.port')),
+    //     username: config.get('db.username'),
+    //     password: config.get('db.password'),
+    //     database: config.get('db.database'),
+    //     timezone: 'UTC',
+    //     charset: 'utf8mb4',
+    //     entities: ['output/**/*.entity{.ts,.js}'],
+    //     synchronize: true,
+    //     logging: false,
+    //   }),
+    // }),
     // 日志模块
     WinstonModule.forRoot({
       level: 'info',
@@ -33,7 +51,7 @@ import { AuthModule } from '../auth/auth.module';
         new winston.transports.Console()
       ]
     }),
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -43,13 +61,14 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
-        IpsMiddleware({
-          _sid: config.sid,
-          _secret: config.secret,
-          _service: config.service,
-          _port: config.redisServer.port,
-          _host: config.redisServer.host
-        })
+        // IpsMiddleware({
+        //   _sid: config.sid,
+        //   _secret: config.secret,
+        //   _service: config.service,
+        //   _port: config.redisServer.port,
+        //   _host: config.redisServer.host
+        // })
+        ZybussMiddleware,
       )
       .exclude({ path: '/redirect', method: RequestMethod.ALL })
       .forRoutes(AuthController);
