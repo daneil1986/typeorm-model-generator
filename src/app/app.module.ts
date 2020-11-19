@@ -9,6 +9,7 @@ import { AppController } from './app.controller';
 import { AuthController } from '../auth/auth.controller';
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../user/user.module';
 
 // 引入数据库的及配置文件
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -25,21 +26,21 @@ import { ZybussMiddleware } from '../common/middleware/zybuss.middleware'; // C�
       timeout: config.get<string>('http.timeout'),
       maxRedirects: config.get<number>('http.maxRedirects')
     }),
-    // TypeOrmModule.forRootAsync({
-    //   useFactory: () => ({
-    //     type: 'mysql',
-    //     host: config.get('db.host'),
-    //     port: Number(config.get('db.port')),
-    //     username: config.get('db.username'),
-    //     password: config.get('db.password'),
-    //     database: config.get('db.database'),
-    //     timezone: 'UTC',
-    //     charset: 'utf8mb4',
-    //     entities: ['output/**/*.entity{.ts,.js}'],
-    //     synchronize: true,
-    //     logging: false,
-    //   }),
-    // }),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'mysql',
+        host: config.get('db.host'),
+        port: Number(config.get('db.port')),
+        username: config.get('db.username'),
+        password: config.get('db.password'),
+        database: config.get('db.database'),
+        timezone: 'UTC',
+        charset: 'utf8mb4',
+        entities: ['output/**/*.entity{.ts,.js}'],
+        synchronize: true,
+        logging: false,
+      }),
+    }),
     // 日志模块
     WinstonModule.forRoot({
       level: 'info',
@@ -52,10 +53,11 @@ import { ZybussMiddleware } from '../common/middleware/zybuss.middleware'; // C�
       ]
     }),
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
-  exports: [HttpModule]
+  exports: [HttpModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
