@@ -11,14 +11,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('/redirect')
-  login(@Req() req: Request, @Res() res: Response): any {
-    return this.appService.redirect(req, res)
-  }
-
-  @Get('/logout')
-  async logout(@Res() res: Response) {
-    return this.appService.logout(res)
-  }
 }

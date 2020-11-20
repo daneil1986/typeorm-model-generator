@@ -16,7 +16,15 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    const status = exception.getStatus();
+    const status = (exception.getStatus && exception.getStatus()) || 500;
+
+    if (+status === 404) {
+      response.status(status).json({
+        errNo: 66666,
+        errStr: '页面不存在，请稍后重试~',
+      });
+      return;
+    }
 
     if (exception instanceof ApiException) {
 
@@ -24,8 +32,8 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
       response
         .status(status)
         .json({
-          errorCode: exception.getErrorCode(),
-          errorMessage: exception.getErrorMessage(),
+          errNo: exception.getErrorCode(),
+          errStr: exception.getErrorMessage(),
           date: new Date().toLocaleDateString(),
           path: request.url,
         });

@@ -8,22 +8,21 @@ import { ApiException } from 'src/common/exceptions/api.exception';
 import { ApiErrorCode } from 'src/common/exceptions/api.code.enum';
 import { HttpExceptionFilter } from 'src/common/filters/http.exception.filter';
 
-
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @Post('/menuinfo')
   menuInfo(@Body() menuParam: authUserDto): any {
-    return this.authService.getMenuInfo(menuParam)
+    return this.authService.getMenuInfo(menuParam);
   }
 
   @Get('/userinfo')
   @UseFilters(HttpExceptionFilter)
   userInfo(@Req() request: Request): any {
-    const { systemId, uname } = request.query
+    const { systemId, uname } = request.query;
     if (+systemId <= 0) {
-      throw new ApiException('用户ID无效', ApiErrorCode.USER_ID_INVALID, HttpStatus.BAD_REQUEST);
+      throw new ApiException(ApiErrorCode.USER_ID_INVALID, '用户ID无效', HttpStatus.BAD_REQUEST);
     }
     return this.authService.getUserInfo({ systemId, uname })
   }
@@ -44,7 +43,7 @@ export class AuthController {
 
   @Get('/login')
   login(@Req() req: Request, @Res() res: Response): any {
-    return this.authService.login(req, res)
+    return this.authService.login(req, res);
   }
 
 }
