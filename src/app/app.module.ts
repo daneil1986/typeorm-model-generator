@@ -37,7 +37,8 @@ import { ZybussMiddleware } from '../common/middleware/zybuss.middleware'; // C�
         timezone: 'UTC',
         charset: 'utf8mb4',
         entities: ['output/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        // 生产和测试环境中要设置成 false， 防止字段改动导致内容丢失， 本地开发可以设置成 true
+        synchronize: config.get('db.synchronize'),
         logging: false,
       }),
     }),
@@ -62,21 +63,14 @@ import { ZybussMiddleware } from '../common/middleware/zybuss.middleware'; // C�
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(
-        // IpsMiddleware({
-        //   _sid: config.sid,
-        //   _secret: config.secret,
-        //   _service: config.service,
-        //   _port: config.redisServer.port,
-        //   _host: config.redisServer.host
-        // })
-        ZybussMiddleware,
+      .apply(ZybussMiddleware)
+      .exclude(
+        { path: '/redirect', method: RequestMethod.ALL },
       )
-      .exclude({ path: '/redirect', method: RequestMethod.ALL })
-      .forRoutes(AuthController);
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
 
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes(AuthController);
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

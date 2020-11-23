@@ -21,7 +21,8 @@
     "port": 3307,
     "username": "root",
     "password": "admin",
-    "database": "node"
+    "database": "node",
+    "synchronize": true
   },
 
   "redisServer": {

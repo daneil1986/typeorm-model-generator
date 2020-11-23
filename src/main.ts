@@ -12,7 +12,7 @@ import { clsMiddleware } from '@node/cls';
 import { AppModule } from './app/app.module';
 import { HttpExceptionFilter } from './common/filters/http.exception.filter';
 import { ValidationPipe } from './common/pipes/validation.pipe';
-
+import { TimeInterceptor } from './common/interceptors/time.interceptor';
 
 async function bootstrap() {
 
@@ -42,7 +42,9 @@ async function bootstrap() {
   // app.use(Sentry.Handlers.requestHandler());
   // app.use(Sentry.Handlers.errorHandler());
 
-  // app.useGlobalFilters(new HttpExceptionFilter())
+  // 统计各个请求时间
+  app.useGlobalInterceptors(new TimeInterceptor())
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
 
   // https://github.com/helmetjs/helmet
