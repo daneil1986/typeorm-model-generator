@@ -17,11 +17,11 @@
   },
 
   "db": {
-    "host": "localhost",
-    "port": 3307,
-    "username": "root",
-    "password": "admin",
-    "database": "node",
+    "host": "mysql.basic.suanshubang.com",
+    "port": 13309,
+    "username": "homework",
+    "password": "homework",
+    "database": "preshool_literacy",
     "synchronize": true
   },
 

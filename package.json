@@ -4,6 +4,7 @@
   "description": "Scaffolding based on Nest.js",
   "main": "index.js",
   "scripts": {
+    "db": "npx typeorm-model-generator -h mysql.basic.suanshubang.com -p 13309 -d preschool_literacy -u homework -x homework -e mysql -o ./src/entities",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "nest build",
     "start": "cross-env NODE_ENV=dev nest start",
@@ -57,6 +58,7 @@
     "ts-node": "^8.4.1",
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
+    "typeorm-model-generator": "^0.4.3",
     "typescript": "^3.6.3"
   }
 }
