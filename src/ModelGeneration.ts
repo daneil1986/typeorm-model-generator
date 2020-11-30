@@ -12,6 +12,7 @@ import { Relation } from "./models/Relation";
 const prettierOptions: Prettier.Options = {
     parser: "typescript",
     endOfLine: "auto",
+    singleQuote: true,
 };
 
 export default function modelGenerationPhase(
