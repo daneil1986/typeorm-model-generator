@@ -542,6 +542,10 @@ export default class MysqlDriver extends AbstractDriver {
             return `() => ['${defaultValue.split(",").join("','")}']`;
         }
 
+        if (dataType === "int" || dataType === "tinyint") {
+            return `() => ${defaultValue}`;
+        }
+
         return `() => "'${defaultValue}'"`;
     }
 }
