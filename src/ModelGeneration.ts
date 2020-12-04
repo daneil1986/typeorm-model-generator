@@ -78,6 +78,7 @@ function generateModels(
             entitiesPath,
             `${casedFileName}.entity.ts`
         );
+        element.fileName = casedFileName;
         const rendered = entityCompliedTemplate(element);
         const withImportStatements = removeUnusedImports(
             EOL !== eolConverter[generationOptions.convertEol]
