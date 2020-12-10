@@ -88,6 +88,9 @@ export default class MysqlDriver extends AbstractDriver {
                         name: resp.COLUMN_NAME,
                     };
                     const generated = resp.IsIdentity === 1 ? true : undefined;
+                    const createColumn = resp.COLUMN_NAME.startsWith("create_");
+                    const updateColumn = resp.COLUMN_NAME.startsWith("update_");
+                    const column = !(generated || createColumn || updateColumn);
                     const defaultValue = MysqlDriver.ReturnDefaultValueFunction(
                         resp.COLUMN_DEFAULT,
                         resp.DATA_TYPE
@@ -111,7 +114,7 @@ export default class MysqlDriver extends AbstractDriver {
                             }
                             break;
                         case "tinyint":
-                            if (resp.COLUMN_TYPE === "tinyint(1)") {
+                            if (resp.COLUMN_TYPE.startsWith("tinyint(1)")) {
                                 options.width = 1;
                                 tscType = "boolean";
                             } else {
@@ -284,6 +287,9 @@ export default class MysqlDriver extends AbstractDriver {
 
                     ent.columns.push({
                         generated,
+                        createColumn,
+                        updateColumn,
+                        column,
                         type: columnType,
                         default: defaultValue,
                         options,
@@ -543,6 +549,10 @@ export default class MysqlDriver extends AbstractDriver {
         }
 
         if (dataType === "int" || dataType === "tinyint") {
+            return `() => ${defaultValue}`;
+        }
+
+        if (dataType === "datetime") {
             return `() => ${defaultValue}`;
         }
 
