@@ -114,7 +114,7 @@ export default class MysqlDriver extends AbstractDriver {
                             }
                             break;
                         case "tinyint":
-                            if (resp.COLUMN_TYPE.startsWith("tinyint(1)")) {
+                            if (resp.COLUMN_TYPE === "tinyint(1)") {
                                 options.width = 1;
                                 tscType = "boolean";
                             } else {

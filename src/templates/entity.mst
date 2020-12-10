@@ -5,7 +5,7 @@
 import {{localImport (toEntityName entityName)}} from "./{{toFileName fileName}}.entity"
 {{/inline}}
 {{#*inline "Column"}}
-{{#generated}}@PrimaryGeneratedColumn({ type:"{{type}}", {{/generated}}{{#createColumn}}@CreateDateColumn({{{/createColumn}}@UpdateDateColumn({ {{#updateColumn}}{{/updateColumn}}{{#column}}@Column("{{type}}",{ {{#primary}}primary:{{primary}},{{/primary}}{{/column}}{{json options}}{{#default}},default: {{.}},{{/default}} })
+{{#generated}}@PrimaryGeneratedColumn({ type:"{{type}}", {{/generated}}{{#createColumn}}@CreateDateColumn({ type:"{{type}}", {{/createColumn}}{{#updateColumn}}@UpdateDateColumn({ type:"{{type}}", {{/updateColumn}}{{#column}}@Column("{{type}}",{ {{#primary}}primary:{{primary}},{{/primary}}{{/column}}{{json options}}{{#default}},default: {{.}},{{/default}} })
 {{printPropertyVisibility}}{{toPropertyName tscName}}{{strictMode}}:{{tscType}}{{#if options.nullable}} | null{{/if}};
 
 {{/inline}}
@@ -41,7 +41,7 @@ export {{defaultExport}} class {{toEntityName fileName}}{{#activeRecord}} extend
 {{#if generateConstructor}}{{>Constructor entityName=tscName}}{{/if~}}
 }
 {{/inline}}
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
+import {BaseEntity,Column,CreateDateColumn,UpdateDateColumn,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 {{#fileImports}}{{> Import}}{{/fileImports}}
 
 {{> Entity}}
